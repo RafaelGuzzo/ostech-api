@@ -1,4 +1,4 @@
-package br.com.ostech.api.controller.dto;
+package br.com.ostech.api.controller.dto.cliente;
 
 import br.com.ostech.api.model.Endereco;
 

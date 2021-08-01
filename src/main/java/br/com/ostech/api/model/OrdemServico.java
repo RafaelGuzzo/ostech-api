@@ -30,23 +30,60 @@ public class OrdemServico {
 	@NotBlank
 	private String descricao;
 
-	private BigDecimal preco = new BigDecimal("0.0");
+	private BigDecimal preco = new BigDecimal(0.0);
 
 	@Enumerated(EnumType.STRING)
 	private StatusOrdemServico status;
 
-	private LocalDateTime dataAbertura = LocalDateTime.now();
+	private LocalDateTime dataAbertura;
 
 	private LocalDateTime dataFinalizacao;
 
 	@Deprecated
 	public OrdemServico() {
-		
+
 	}
-	public OrdemServico(@NotNull Cliente cliente, @NotBlank String equipamento, @NotBlank String descricao) {
+
+	public OrdemServico(@NotNull Cliente cliente, @NotBlank String equipamento, @NotBlank String descricao,
+			BigDecimal preco) {
 		this.cliente = cliente;
 		this.equipamento = equipamento;
 		this.descricao = descricao;
+		this.preco = preco;
+		this.status = StatusOrdemServico.ABERTA;
+		this.dataAbertura = LocalDateTime.now();
 	}
-		
+
+	public Long getId() {
+		return id;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public String getEquipamento() {
+		return equipamento;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public BigDecimal getPreco() {
+		return preco;
+	}
+
+	public StatusOrdemServico getStatus() {
+		return status;
+	}
+
+	public LocalDateTime getDataAbertura() {
+		return dataAbertura;
+	}
+
+	public LocalDateTime getDataFinalizacao() {
+		return dataFinalizacao;
+	}
+
 }

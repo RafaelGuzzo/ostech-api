@@ -1,4 +1,4 @@
-package br.com.ostech.api.controller.dto;
+package br.com.ostech.api.controller.dto.cliente;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

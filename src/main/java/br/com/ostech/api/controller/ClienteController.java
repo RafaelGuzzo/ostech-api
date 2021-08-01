@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.ostech.api.controller.dto.AtualizaClienteRequest;
-import br.com.ostech.api.controller.dto.InfoClienteResponse;
-import br.com.ostech.api.controller.dto.NovoClienteRequest;
+import br.com.ostech.api.controller.dto.cliente.AtualizaClienteRequest;
+import br.com.ostech.api.controller.dto.cliente.InfoClienteResponse;
+import br.com.ostech.api.controller.dto.cliente.NovoClienteRequest;
 import br.com.ostech.api.model.Cliente;
 import br.com.ostech.api.repository.ClienteRepository;
 import br.com.ostech.api.validator.ExisteId;
