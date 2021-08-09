@@ -33,7 +33,7 @@ public class ExisteIdValidator implements ConstraintValidator<ExisteId, Long> {
 		query.setParameter("value", value);
 
 		List<?> list = query.getResultList();
-
+		
 		return !list.isEmpty();
 	}
 

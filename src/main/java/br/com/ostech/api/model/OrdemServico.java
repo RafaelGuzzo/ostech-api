@@ -1,6 +1,7 @@
 package br.com.ostech.api.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
@@ -35,9 +36,9 @@ public class OrdemServico {
 	@Enumerated(EnumType.STRING)
 	private StatusOrdemServico status;
 
-	private LocalDateTime dataAbertura;
+	private LocalDate dataAbertura;
 
-	private LocalDateTime dataFinalizacao;
+	private LocalDate dataFinalizacao;
 
 	@Deprecated
 	public OrdemServico() {
@@ -51,7 +52,7 @@ public class OrdemServico {
 		this.descricao = descricao;
 		this.preco = preco;
 		this.status = StatusOrdemServico.ABERTA;
-		this.dataAbertura = LocalDateTime.now();
+		this.dataAbertura = LocalDate.now();
 	}
 
 	public Long getId() {
@@ -78,12 +79,19 @@ public class OrdemServico {
 		return status;
 	}
 
-	public LocalDateTime getDataAbertura() {
+	public LocalDate getDataAbertura() {
 		return dataAbertura;
 	}
 
-	public LocalDateTime getDataFinalizacao() {
+	public LocalDate getDataFinalizacao() {
 		return dataFinalizacao;
+	}
+
+	public void atualiza(OrdemServico ordemServico) {
+		this.cliente = ordemServico.getCliente();
+		this.equipamento = ordemServico.getEquipamento();
+		this.descricao = ordemServico.getDescricao();
+		this.preco = ordemServico.getPreco();
 	}
 
 }

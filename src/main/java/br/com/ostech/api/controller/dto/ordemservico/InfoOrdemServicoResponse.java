@@ -1,6 +1,7 @@
 package br.com.ostech.api.controller.dto.ordemservico;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import br.com.ostech.api.model.OrdemServico;
@@ -13,8 +14,8 @@ public class InfoOrdemServicoResponse {
 	private String descricao;
 	private BigDecimal preco;
 	private StatusOrdemServico status;
-	private LocalDateTime dataAbertura;
-	private LocalDateTime dataFinalizacao;
+	private LocalDate dataAbertura;
+	private LocalDate dataFinalizacao;
 	private ClienteOrdemServicoResponse cliente;
 
 	public InfoOrdemServicoResponse(OrdemServico ordemServico) {
@@ -52,11 +53,11 @@ public class InfoOrdemServicoResponse {
 		return status;
 	}
 
-	public LocalDateTime getDataAbertura() {
+	public LocalDate getDataAbertura() {
 		return dataAbertura;
 	}
 
-	public LocalDateTime getDataFinalizacao() {
+	public LocalDate getDataFinalizacao() {
 		return dataFinalizacao;
 	}
 
