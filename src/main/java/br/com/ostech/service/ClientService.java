@@ -15,7 +15,7 @@ public interface ClientService {
 
     Client save(CreateClientRequest client);
 
-    Optional<ClientResponse> findByClientNameAndCpf(String name, String cpf);
+    List<Client> findByClientNameAndCpf(String name, String cpf);
 
     List<Client> findByClientName(String name);
 

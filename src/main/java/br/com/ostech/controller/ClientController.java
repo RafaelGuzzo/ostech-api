@@ -4,6 +4,7 @@ import br.com.ostech.controller.request.CreateClientRequest;
 import br.com.ostech.controller.request.UpdateClientRequest;
 import br.com.ostech.controller.response.ClientResponse;
 import br.com.ostech.service.ClientService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,7 @@ public class ClientController {
     }
 
     @PostMapping
-    public ResponseEntity<ClientResponse> addClient(@RequestBody CreateClientRequest client){
+    public ResponseEntity<ClientResponse> addClient(@Valid @RequestBody CreateClientRequest client){
         ClientResponse newClient = new ClientResponse(clientService.save(client));
 
         return ResponseEntity.ok(newClient);
@@ -52,7 +53,7 @@ public class ClientController {
     }
 
     @PutMapping("/update/{clientId}")
-    public ResponseEntity<ClientResponse> updateClient(@PathVariable Long clientId,
+    public ResponseEntity<ClientResponse> updateClient(@Valid @PathVariable Long clientId,
                                                        @RequestBody UpdateClientRequest clientRequest){
         ClientResponse clientUpdated = new ClientResponse(clientService.update(clientId,
                 clientRequest));
@@ -68,11 +69,14 @@ public class ClientController {
     }
 
     private ResponseEntity<?> searchByBothParams(String name, String cpf){
-        Optional<ClientResponse> client = clientService.findByClientNameAndCpf(name, cpf);
-        if(client.isPresent()){
-            return ResponseEntity.ok(client);
-        } else {
+        List<ClientResponse> clientFound = clientService.findByClientNameAndCpf(name, cpf)
+                .stream()
+                .map(client -> new ClientResponse(client))
+                .collect(Collectors.toList());
+        if(clientFound.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client not found");
+        } else {
+            return ResponseEntity.ok(clientFound);
         }
     }
 

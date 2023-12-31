@@ -33,8 +33,8 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Optional<ClientResponse> findByClientNameAndCpf(String name, String cpf) {
-        return Optional.empty();
+    public List<Client> findByClientNameAndCpf(String name, String cpf) {
+        return clientRepository.findByNameAndCpf(name, cpf);
     }
 
     @Override
