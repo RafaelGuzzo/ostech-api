@@ -23,8 +23,7 @@ public class Address {
     @OneToOne(mappedBy = "address")
     private Client client;
 
-    public Address(Long id, String street, String neighborhood, String cep, String city, String complement, String number, String uf) {
-        this.id = id;
+    public Address(String street, String neighborhood, String cep, String city, String complement, String number, String uf) {
         this.street = street;
         this.neighborhood = neighborhood;
         this.cep = cep;
