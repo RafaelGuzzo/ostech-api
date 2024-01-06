@@ -1,0 +1,143 @@
+{
+	"info": {
+		"_postman_id": "5b763a2c-6967-45d9-a576-3d50133437e3",
+		"name": "Api Ostech",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add Client",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Guilherme\",\r\n    \"email\": \"guilherme_teste@gmail.com\",\r\n    \"cpf\": \"12345678910\",\r\n    \"contact\": \"Teste\",\r\n    \"phone\": \"45999999866\",\r\n    \"address\": {\r\n        \"street\":\"Rua José Bonifacio\",\r\n        \"neighborhood\":\"São Cristovão\",\r\n        \"cep\":\"85813150\",\r\n        \"city\":\"Cascavel\",\r\n        \"complement\":\"Casa\",\r\n        \"number\":\"1468\",\r\n        \"uf\":\"PR\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/client",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"client"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove Client",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/client/delete/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"client",
+						"delete",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Clients",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/client",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"client"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Client",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/client/search?name=Guilherme",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"client",
+						"search"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Guilherme"
+						},
+						{
+							"key": "cpf",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Client",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Fernanda\",\r\n    \"email\": \"fernanda_teste@gmail.com\",\r\n    \"cpf\": \"12345678911\",\r\n    \"contact\": \"Teste\",\r\n    \"phone\": \"45991569688\",\r\n    \"address\": {\r\n        \"street\":\"Rua Mato Grosso\",\r\n        \"neighborhood\":\"Centro\",\r\n        \"cep\":\"85812020\",\r\n        \"city\":\"Cascavel\",\r\n        \"complement\":\"Condominio\",\r\n        \"number\":\"1385\",\r\n        \"uf\":\"PR\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/client/update/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"client",
+						"update",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
