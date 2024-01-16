@@ -2,16 +2,16 @@ package br.com.ostech.service;
 
 import br.com.ostech.controller.request.CreateClientRequest;
 import br.com.ostech.controller.request.UpdateClientRequest;
-import br.com.ostech.controller.response.ClientResponse;
 import br.com.ostech.model.Client;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public interface ClientService {
-    List<Client> findAll();
+    Page<Client> findAll(String name, String cpf, Pageable pageable);
 
     Client save(CreateClientRequest client);
 

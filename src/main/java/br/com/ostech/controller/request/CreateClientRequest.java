@@ -1,7 +1,7 @@
 package br.com.ostech.controller.request;
 
-import br.com.ostech.model.Address;
 import br.com.ostech.model.Client;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -22,18 +22,8 @@ public class CreateClientRequest {
     @NotBlank
     @NotEmpty
     private String phone;
-    @NotBlank
-    @NotEmpty
-    private Address address;
-
-    public CreateClientRequest(String name, String email, String cpf, String contact, String phone, Address address) {
-        this.name = name;
-        this.email = email;
-        this.cpf = cpf;
-        this.contact = contact;
-        this.phone = phone;
-        this.address = address;
-    }
+    @Valid
+    private AddressRequest address;
 
     public String getName() {
         return name;
@@ -55,12 +45,19 @@ public class CreateClientRequest {
         return phone;
     }
 
-    public Address getAddress() {
+    public AddressRequest getAddress() {
         return address;
     }
 
 
     public Client convertToModel() {
-        return new Client(name, email, cpf, contact, phone, address);
+        return new Client.ClientBuilder()
+                .name(name)
+                .email(email)
+                .cpf(cpf)
+                .contact(contact)
+                .phone(phone)
+                .address(address.convertToModel())
+                .build();
     }
 }
