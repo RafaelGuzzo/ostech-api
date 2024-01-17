@@ -4,59 +4,30 @@ import br.com.ostech.model.Address;
 import br.com.ostech.model.Client;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
-
-public class ClientResponse {
-
-    private String name;
-    private String email;
-    private String cpf;
-    private String contact;
-    private String phone;
-    private Address address;
-    private LocalDateTime createAt;
-    private LocalDateTime updateAt;
-
+public record ClientResponse(
+        UUID id,
+        String name,
+        String email,
+        String cpf,
+        String contact,
+        String phone,
+        Address address,
+        LocalDateTime createAt,
+        LocalDateTime updateAt) {
     public ClientResponse(Client client) {
-        this.name = client.getName();
-        this.email = client.getEmail();
-        this.cpf = client.getCpf();
-        this.contact = client.getContact();
-        this.phone = client.getPhone();
-        this.address = client.getAddress();
-        this.createAt = client.getCreateAt();
-        this.updateAt = client.getUpdateAt();
-    }
+        this(
+                client.getId(),
+                client.getName(),
+                client.getEmail(),
+                client.getCpf(),
+                client.getContact(),
+                client.getPhone(),
+                client.getAddress(),
+                client.getCreateAt(),
+                client.getUpdateAt()
+        );
 
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public String getContact() {
-        return contact;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public LocalDateTime getCreateAt() {
-        return createAt;
-    }
-
-    public LocalDateTime getUpdateAt() {
-        return updateAt;
     }
 }

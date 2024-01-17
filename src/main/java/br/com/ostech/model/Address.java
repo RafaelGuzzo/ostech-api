@@ -1,7 +1,12 @@
 package br.com.ostech.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
+
+import java.time.LocalDateTime;
 
 @Entity
 public class Address {
@@ -12,25 +17,87 @@ public class Address {
     @NotNull
     private String street;
     @NotNull
-    private String neighborhood;
-    private String cep;
+    private String district;
+    private String zipCode;
     private String city;
     private String complement;
     @NotNull
     private String number;
     private String uf;
 
-    @OneToOne(mappedBy = "address")
-    private Client client;
+    public Address(AddressBuilder builder) {
+        this.street = builder.street;
+        this.district = builder.district;
+        this.zipCode = builder.zipCode;
+        this.city = builder.city;
+        this.complement = builder.complement;
+        this.number = builder.number;
+        this.uf = builder.uf;
+    }
 
-    public Address(String street, String neighborhood, String cep, String city, String complement, String number, String uf) {
-        this.street = street;
-        this.neighborhood = neighborhood;
-        this.cep = cep;
-        this.city = city;
-        this.complement = complement;
-        this.number = number;
-        this.uf = uf;
+    public Address update(Address address){
+        this.street = address.getStreet();
+        this.district = address.getDistrict();
+        this.zipCode = address.getZipCode();
+        this.city = address.getCity();
+        this.complement = address.getComplement();
+        this.number = address.getNumber();
+        this.uf = address.getUf();
+
+        return this;
+    }
+
+    public Address() {
+
+    }
+
+    public static class AddressBuilder {
+        private String street;
+        private String district;
+        private String number;
+        private String zipCode;
+        private String city;
+        private String complement;
+        private String uf;
+
+        public AddressBuilder street(String street) {
+            this.street = street;
+            return this;
+        }
+
+        public AddressBuilder district(String district) {
+            this.district = district;
+            return this;
+        }
+
+        public AddressBuilder number(String number) {
+            this.number = number;
+            return this;
+        }
+
+        public AddressBuilder zipCode(String zipCode) {
+            this.zipCode = zipCode;
+            return this;
+        }
+
+        public AddressBuilder city(String city) {
+            this.city = city;
+            return this;
+        }
+
+        public AddressBuilder complement(String complement) {
+            this.complement = complement;
+            return this;
+        }
+
+        public AddressBuilder uf(String uf) {
+            this.uf = uf;
+            return this;
+        }
+
+        public Address build(){
+            return new Address(this);
+        }
     }
 
     public Long getId() {
@@ -41,12 +108,12 @@ public class Address {
         return street;
     }
 
-    public String getNeighborhood() {
-        return neighborhood;
+    public String getDistrict() {
+        return district;
     }
 
-    public String getCep() {
-        return cep;
+    public String getZipCode() {
+        return zipCode;
     }
 
     public String getCity() {
@@ -63,8 +130,5 @@ public class Address {
 
     public String getUf() {
         return uf;
-    }
-
-    public Address() {
     }
 }
