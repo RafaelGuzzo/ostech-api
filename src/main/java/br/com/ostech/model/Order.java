@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "order_service")
@@ -20,12 +20,13 @@ public class Order {
     private String equipament;
     @NotNull
     private String description;
-    private BigDecimal price;
-    private OrderStatus status;
-    @Column(name = "open_date")
-    private LocalDate openDate;
-    @Column(name = "end_date")
-    private LocalDate endDate;
+    private BigDecimal price = BigDecimal.ONE;
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status = OrderStatus.OPEN;
+    @Column(name = "create_at")
+    private LocalDateTime createAt = LocalDateTime.now();
+    @Column(name = "update_at")
+    private LocalDateTime updateAt = LocalDateTime.now();
 
     public Order() {
     }
@@ -35,9 +36,6 @@ public class Order {
         this.equipament = builder.equipament;
         this.description = builder.description;
         this.price = builder.price;
-        this.status = builder.status;
-        this.openDate = builder.openDate;
-        this.endDate = builder.endDate;
     }
 
     public Order update(Order order) {
@@ -45,11 +43,15 @@ public class Order {
         this.equipament = order.getEquipament();
         this.description = order.getDescription();
         this.price = order.getPrice();
-        this.status = order.getStatus();
-        this.openDate = order.getOpenDate();
-        this.endDate = order.getEndDate();
+        this.createAt = order.getUpdateAt();
+        this.updateAt = LocalDateTime.now();
 
         return this;
+    }
+
+    public void changeNextStatus() {
+        this.status = this.status.next();
+        this.updateAt = LocalDateTime.now();
     }
 
     public static class OrderBuilder {
@@ -58,9 +60,6 @@ public class Order {
         private String equipament;
         private String description;
         private BigDecimal price;
-        private OrderStatus status;
-        private LocalDate openDate;
-        private LocalDate endDate;
 
         public OrderBuilder id(Long id) {
             this.id = id;
@@ -87,22 +86,7 @@ public class Order {
             return this;
         }
 
-        public OrderBuilder status(OrderStatus status) {
-            this.status = status;
-            return this;
-        }
-
-        public OrderBuilder openDate(LocalDate openDate) {
-            this.openDate = openDate;
-            return this;
-        }
-
-        public OrderBuilder endDate(LocalDate endDate) {
-            this.endDate = endDate;
-            return this;
-        }
-
-        public Order build(){
+        public Order build() {
             return new Order(this);
         }
 
@@ -132,11 +116,11 @@ public class Order {
         return status;
     }
 
-    public LocalDate getOpenDate() {
-        return openDate;
+    public LocalDateTime getCreateAt() {
+        return createAt;
     }
 
-    public LocalDate getEndDate() {
-        return endDate;
+    public LocalDateTime getUpdateAt() {
+        return updateAt;
     }
 }

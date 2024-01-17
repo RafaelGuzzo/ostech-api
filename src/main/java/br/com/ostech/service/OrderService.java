@@ -12,6 +12,12 @@ public interface OrderService {
 
     Page<Order> findAll(Long id, OrderStatus status, Pageable pageable);
 
+    Page<Order> listAllOrdersBy(String clientId, Pageable pageable);
+
+    Order getOrderBy(Long orderId);
+
+    Order changeStatus(Long orderId);
+
     Order save(OrderRequest order);
 
     void delete(Long orderId);

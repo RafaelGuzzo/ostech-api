@@ -15,15 +15,20 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class OrderServiceImpl implements OrderService {
+    private final OrderRepository orderRepository;
+
+
+    private final ClientServiceImpl clientService;
 
     @Autowired
-    OrderRepository orderRepository;
-
-    @Autowired
-    ClientServiceImpl clientService;
+    public OrderServiceImpl(OrderRepository orderRepository, ClientServiceImpl clientService) {
+        this.orderRepository = orderRepository;
+        this.clientService = clientService;
+    }
 
     @Override
     public Page<Order> findAll(Long id, OrderStatus status, Pageable pageable) {
@@ -32,9 +37,27 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public Page<Order> listAllOrdersBy(String clientId, Pageable pageable) {
+        return orderRepository.findAllByClientId(UUID.fromString(clientId), pageable);
+    }
+
+    @Override
+    public Order getOrderBy(Long orderId) {
+        return findByOrder(orderId);
+    }
+
+    @Override
+    public Order changeStatus(Long orderId) {
+        Order order = findByOrder(orderId);
+        order.changeNextStatus();
+        return orderRepository.save(order);
+    }
+
+    @Override
     public Order save(OrderRequest orderRequest) {
-        Client verifiedClient = clientService.findByClientId(orderRequest.getClient().getId());
-        if(orderRequest.getId() != null){
+        UUID clientId = UUID.fromString(orderRequest.getClientId());
+        Client verifiedClient = clientService.findByClientId(clientId);
+        if (orderRequest.getId() != null) {
             Order orderFounded = this.findByOrder(orderRequest.getId());
             orderFounded.update(orderRequest.convertToModel(verifiedClient));
             return orderRepository.save(orderFounded);
@@ -53,7 +76,7 @@ public class OrderServiceImpl implements OrderService {
     private Order findByOrder(Long orderId) {
         Optional<Order> order = orderRepository.findById(orderId);
 
-        if(order.isEmpty()){
+        if (order.isEmpty()) {
             throw new OrderNotFoundException();
         }
 
