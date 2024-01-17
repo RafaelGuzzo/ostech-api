@@ -9,14 +9,15 @@ public class AddressRequest {
     @NotNull
     private String street;
     @NotNull
-    private String number;
-    @NotNull
     private String district;
     @JsonProperty("zip_code")
     private String zipCode;
     private String city;
     private String complement;
+    @NotNull
+    private String number;
     private String uf;
+
 
     public Address convertToModel() {
         return new Address.AddressBuilder()
@@ -56,5 +57,15 @@ public class AddressRequest {
 
     public String getUf() {
         return uf;
+    }
+
+    public AddressRequest(String street, String district, String zipCode, String city, String complement, String number, String uf) {
+        this.street = street;
+        this.district = district;
+        this.zipCode = zipCode;
+        this.city = city;
+        this.complement = complement;
+        this.number = number;
+        this.uf = uf;
     }
 }

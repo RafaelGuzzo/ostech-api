@@ -1,13 +1,17 @@
 package br.com.ostech.controller.request;
 
-import br.com.ostech.model.Address;
+import br.com.ostech.model.Client;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
-public class UpdateClientRequest {
+import java.util.UUID;
 
+public class ClientRequest {
+
+    private UUID id;
     @NotBlank
     @NotEmpty
     @Size(min = 3, max = 50)
@@ -16,22 +20,27 @@ public class UpdateClientRequest {
     @NotBlank
     @NotEmpty
     private String email;
-    private String documentNumber;
+    private String cpf;
     private String contact;
     @NotBlank
     @NotEmpty
     private String phone;
-    @NotBlank
-    @NotEmpty
-    private Address address;
+    @Valid
+    private AddressRequest address;
 
-    public UpdateClientRequest(String name, String email, String documentNumber, String contact, String phone, Address address) {
+
+    public ClientRequest(UUID id, String name, String email, String cpf, String contact, String phone, AddressRequest address) {
+        this.id = id;
         this.name = name;
         this.email = email;
-        this.documentNumber = documentNumber;
+        this.cpf = cpf;
         this.contact = contact;
         this.phone = phone;
         this.address = address;
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     public String getName() {
@@ -42,8 +51,8 @@ public class UpdateClientRequest {
         return email;
     }
 
-    public String getdocumentNumber() {
-        return documentNumber;
+    public String getCpf() {
+        return cpf;
     }
 
     public String getContact() {
@@ -54,7 +63,18 @@ public class UpdateClientRequest {
         return phone;
     }
 
-    public Address getAddress() {
+    public AddressRequest getAddress() {
         return address;
+    }
+
+    public Client convertToModel() {
+        return new Client.ClientBuilder()
+                .name(name)
+                .email(email)
+                .cpf(cpf)
+                .contact(contact)
+                .phone(phone)
+                .address(address.convertToModel())
+                .build();
     }
 }
