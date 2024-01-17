@@ -4,12 +4,13 @@ import br.com.ostech.model.Address;
 import br.com.ostech.model.Client;
 
 import java.time.LocalDateTime;
-
+import java.util.UUID;
 
 public record ClientResponse(
+        UUID id,
         String name,
         String email,
-        String cpf,
+        String documentNumber,
         String contact,
         String phone,
         Address address,
@@ -17,9 +18,10 @@ public record ClientResponse(
         LocalDateTime updateAt) {
     public ClientResponse(Client client) {
         this(
+                client.getId(),
                 client.getName(),
                 client.getEmail(),
-                client.getCpf(),
+                client.getDocumentNumber(),
                 client.getContact(),
                 client.getPhone(),
                 client.getAddress(),

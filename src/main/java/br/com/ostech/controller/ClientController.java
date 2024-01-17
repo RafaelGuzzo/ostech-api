@@ -1,24 +1,24 @@
 package br.com.ostech.controller;
 
-import br.com.ostech.controller.request.CreateClientRequest;
-import br.com.ostech.controller.request.UpdateClientRequest;
+import br.com.ostech.controller.request.ClientRequest;
 import br.com.ostech.controller.response.ClientResponse;
 import br.com.ostech.service.ClientService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.UUID;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping("/api/v1/client")
+@RequestMapping(value = "/v1/client", produces = APPLICATION_JSON_VALUE)
 public class ClientController {
-    ClientService clientService;
+
+    private final ClientService clientService;
 
     @Autowired
     public ClientController(ClientService clientService) {
@@ -28,87 +28,33 @@ public class ClientController {
     @GetMapping
     public ResponseEntity<Page<ClientResponse>> getAllClients(
             @RequestParam(required = false) String name,
-            @RequestParam(required = false) String cpf,
+            @RequestParam(required = false) String documentNumber,
             Pageable pageable) {
 
-        Page<ClientResponse> clients = clientService.findAll(name, cpf, pageable).map(ClientResponse::new);
+        Page<ClientResponse> clients = clientService.findAll(name, documentNumber, pageable)
+                .map(ClientResponse::new);
+
         return ResponseEntity.ok(clients);
     }
 
     @PostMapping
-    public ResponseEntity<ClientResponse> addClient(@Valid @RequestBody CreateClientRequest client) {
+    public ResponseEntity<ClientResponse> addUpdateClient(@Valid @RequestBody ClientRequest client) {
         ClientResponse newClient = new ClientResponse(clientService.save(client));
 
         return ResponseEntity.ok(newClient);
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<?> getOneClient(@RequestParam(required = false) String name,
-                                          @RequestParam(required = false) String cpf) {
+    @GetMapping("/{clientId}")
+    public ResponseEntity<ClientResponse> getOneClient(@PathVariable UUID clientId) {
+        ClientResponse clientFound = new ClientResponse(clientService.findByClientId(clientId));
 
-        if (bothParamsPresent(name, cpf)) {
-            return searchByBothParams(name, cpf);
-        } else if (name != null) {
-            return searchByName(name);
-        } else if (cpf != null) {
-            return searchByCpf(cpf);
-        } else {
-            return ResponseEntity.badRequest().body("Provide at least one parameter (name or cpf) for the search");
-        }
-    }
-
-    @PutMapping("/update/{clientId}")
-    public ResponseEntity<ClientResponse> updateClient(@Valid @PathVariable Long clientId,
-                                                       @RequestBody UpdateClientRequest clientRequest) {
-        ClientResponse clientUpdated = new ClientResponse(clientService.update(clientId,
-                clientRequest));
-
-        return ResponseEntity.ok(clientUpdated);
-    }
-
-    @DeleteMapping("/delete/{clientId}")
-    public ResponseEntity<?> removeClient(@PathVariable Long clientId) {
-        clientService.delete(clientId);
-
-        return ResponseEntity.ok("client successfully deleted");
-    }
-
-    private ResponseEntity<?> searchByBothParams(String name, String cpf) {
-        List<ClientResponse> clientFound = clientService.findByClientNameAndCpf(name, cpf)
-                .stream()
-                .map(client -> new ClientResponse(client))
-                .collect(Collectors.toList());
-        if (clientFound.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client not found");
-        } else {
-            return ResponseEntity.ok(clientFound);
-        }
-    }
-
-    private ResponseEntity<?> searchByName(String name) {
-        List<ClientResponse> clientFound = clientService.findByClientName(name)
-                .stream()
-                .map(client -> new ClientResponse(client))
-                .collect(Collectors.toList());
-        return searchResult(clientFound);
-    }
-
-    private ResponseEntity<?> searchByCpf(String cpf) {
-        List<ClientResponse> clientFound = clientService.findByClientCpf(cpf)
-                .stream()
-                .map(client -> new ClientResponse(client))
-                .collect(Collectors.toList());
-        return searchResult(clientFound);
-    }
-
-    private ResponseEntity<?> searchResult(List<ClientResponse> clientFound) {
-        if (clientFound.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client not found");
-        }
         return ResponseEntity.ok(clientFound);
     }
 
-    private boolean bothParamsPresent(String name, String cpf) {
-        return name != null && cpf != null;
+    @DeleteMapping("/{clientId}")
+    public ResponseEntity<?> removeClient(@PathVariable UUID clientId) {
+        clientService.delete(clientId);
+
+        return ResponseEntity.ok("client successfully deleted");
     }
 }

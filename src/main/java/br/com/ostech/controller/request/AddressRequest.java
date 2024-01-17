@@ -9,25 +9,16 @@ public class AddressRequest {
     @NotNull
     private String street;
     @NotNull
-    private String number;
-    @NotNull
     private String district;
     @JsonProperty("zip_code")
     private String zipCode;
     private String city;
     private String complement;
+    @NotNull
+    private String number;
     private String uf;
 
-    public Address convertToModel() {
-        return new Address.AddressBuilder()
-                .street(street)
-                .district(district)
-                .zipCode(zipCode)
-                .city(city)
-                .complement(complement)
-                .number(number)
-                .uf(uf)
-                .build();
+    private AddressRequest() {
     }
 
     public String getStreet() {
@@ -56,5 +47,17 @@ public class AddressRequest {
 
     public String getUf() {
         return uf;
+    }
+
+    public Address convertToModel() {
+        return new Address.AddressBuilder()
+                .street(street)
+                .district(district)
+                .zipCode(zipCode)
+                .city(city)
+                .complement(complement)
+                .number(number)
+                .uf(uf)
+                .build();
     }
 }

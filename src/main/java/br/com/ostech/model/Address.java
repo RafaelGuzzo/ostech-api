@@ -1,7 +1,12 @@
 package br.com.ostech.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
+
+import java.time.LocalDateTime;
 
 @Entity
 public class Address {
@@ -20,7 +25,7 @@ public class Address {
     private String number;
     private String uf;
 
-    private Address(AddressBuilder builder) {
+    public Address(AddressBuilder builder) {
         this.street = builder.street;
         this.district = builder.district;
         this.zipCode = builder.zipCode;
@@ -30,7 +35,20 @@ public class Address {
         this.uf = builder.uf;
     }
 
+    public Address update(Address address){
+        this.street = address.getStreet();
+        this.district = address.getDistrict();
+        this.zipCode = address.getZipCode();
+        this.city = address.getCity();
+        this.complement = address.getComplement();
+        this.number = address.getNumber();
+        this.uf = address.getUf();
+
+        return this;
+    }
+
     public Address() {
+
     }
 
     public static class AddressBuilder {
@@ -77,7 +95,7 @@ public class Address {
             return this;
         }
 
-        public Address build() {
+        public Address build(){
             return new Address(this);
         }
     }
@@ -112,8 +130,5 @@ public class Address {
 
     public String getUf() {
         return uf;
-    }
-
-    public Address() {
     }
 }

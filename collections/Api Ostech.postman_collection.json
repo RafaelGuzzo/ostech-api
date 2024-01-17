@@ -12,7 +12,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Guilherme\",\r\n    \"email\": \"guilherme_teste@gmail.com\",\r\n    \"cpf\": \"12345678910\",\r\n    \"contact\": \"Teste\",\r\n    \"phone\": \"45999999866\",\r\n    \"address\": {\r\n        \"street\":\"Rua José Bonifacio\",\r\n        \"neighborhood\":\"São Cristovão\",\r\n        \"cep\":\"85813150\",\r\n        \"city\":\"Cascavel\",\r\n        \"complement\":\"Casa\",\r\n        \"number\":\"1468\",\r\n        \"uf\":\"PR\"\r\n    }\r\n}",
+					"raw": "{\r\n    \"name\": \"Guilherme\",\r\n    \"email\": \"guilherme_teste@gmail.com\",\r\n    \"documentNumber\": \"12345678910\",\r\n    \"contact\": \"Teste\",\r\n    \"phone\": \"45999999866\",\r\n    \"address\": {\r\n        \"street\":\"Rua José Bonifacio\",\r\n        \"neighborhood\":\"São Cristovão\",\r\n        \"cep\":\"85813150\",\r\n        \"city\":\"Cascavel\",\r\n        \"complement\":\"Casa\",\r\n        \"number\":\"1468\",\r\n        \"uf\":\"PR\"\r\n    }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -99,7 +99,7 @@
 							"value": "Guilherme"
 						},
 						{
-							"key": "cpf",
+							"key": "documentNumber",
 							"value": null,
 							"disabled": true
 						}
@@ -115,7 +115,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Fernanda\",\r\n    \"email\": \"fernanda_teste@gmail.com\",\r\n    \"cpf\": \"12345678911\",\r\n    \"contact\": \"Teste\",\r\n    \"phone\": \"45991569688\",\r\n    \"address\": {\r\n        \"street\":\"Rua Mato Grosso\",\r\n        \"neighborhood\":\"Centro\",\r\n        \"cep\":\"85812020\",\r\n        \"city\":\"Cascavel\",\r\n        \"complement\":\"Condominio\",\r\n        \"number\":\"1385\",\r\n        \"uf\":\"PR\"\r\n    }\r\n}",
+					"raw": "{\r\n    \"name\": \"Fernanda\",\r\n    \"email\": \"fernanda_teste@gmail.com\",\r\n    \"documentNumber\": \"12345678911\",\r\n    \"contact\": \"Teste\",\r\n    \"phone\": \"45991569688\",\r\n    \"address\": {\r\n        \"street\":\"Rua Mato Grosso\",\r\n        \"neighborhood\":\"Centro\",\r\n        \"cep\":\"85812020\",\r\n        \"city\":\"Cascavel\",\r\n        \"complement\":\"Condominio\",\r\n        \"number\":\"1385\",\r\n        \"uf\":\"PR\"\r\n    }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

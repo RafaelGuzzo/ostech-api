@@ -7,8 +7,11 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
-public class CreateClientRequest {
+import java.util.UUID;
 
+public class ClientRequest {
+
+    private UUID id;
     @NotBlank
     @NotEmpty
     @Size(min = 3, max = 50)
@@ -17,13 +20,21 @@ public class CreateClientRequest {
     @NotBlank
     @NotEmpty
     private String email;
-    private String cpf;
+    private String documentNumber;
     private String contact;
     @NotBlank
     @NotEmpty
     private String phone;
     @Valid
     private AddressRequest address;
+
+
+    public ClientRequest() {
+    }
+
+    public UUID getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
@@ -33,8 +44,8 @@ public class CreateClientRequest {
         return email;
     }
 
-    public String getCpf() {
-        return cpf;
+    public String getdocumentNumber() {
+        return documentNumber;
     }
 
     public String getContact() {
@@ -49,12 +60,11 @@ public class CreateClientRequest {
         return address;
     }
 
-
     public Client convertToModel() {
         return new Client.ClientBuilder()
                 .name(name)
                 .email(email)
-                .cpf(cpf)
+                .documentNumber(documentNumber)
                 .contact(contact)
                 .phone(phone)
                 .address(address.convertToModel())
