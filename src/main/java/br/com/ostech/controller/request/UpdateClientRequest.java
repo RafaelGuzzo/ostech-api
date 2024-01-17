@@ -16,7 +16,7 @@ public class UpdateClientRequest {
     @NotBlank
     @NotEmpty
     private String email;
-    private String cpf;
+    private String documentNumber;
     private String contact;
     @NotBlank
     @NotEmpty
@@ -25,10 +25,10 @@ public class UpdateClientRequest {
     @NotEmpty
     private Address address;
 
-    public UpdateClientRequest(String name, String email, String cpf, String contact, String phone, Address address) {
+    public UpdateClientRequest(String name, String email, String documentNumber, String contact, String phone, Address address) {
         this.name = name;
         this.email = email;
-        this.cpf = cpf;
+        this.documentNumber = documentNumber;
         this.contact = contact;
         this.phone = phone;
         this.address = address;
@@ -42,8 +42,8 @@ public class UpdateClientRequest {
         return email;
     }
 
-    public String getCpf() {
-        return cpf;
+    public String getdocumentNumber() {
+        return documentNumber;
     }
 
     public String getContact() {

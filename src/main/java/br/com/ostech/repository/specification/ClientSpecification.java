@@ -10,17 +10,17 @@ public class ClientSpecification {
         throw new IllegalStateException("Specification Static class");
     }
 
-    public static Specification<Client> filterBy(String name, String cpf) {
+    public static Specification<Client> filterBy(String name, String documentNumber) {
         return Specification
                 .where(likeName(name))
-                .and(likeCpf(cpf));
+                .and(likedocumentNumber(documentNumber));
     }
 
     private static Specification<Client> likeName(String name) {
         return (root, query, criteriaBuilder) -> isNullOrBlank(name) ? criteriaBuilder.conjunction() : criteriaBuilder.like(root.get("name"), "%" + name + "%");
     }
 
-    private static Specification<Client> likeCpf(String cpf) {
-        return (root, query, criteriaBuilder) -> isNullOrBlank(cpf) ? criteriaBuilder.conjunction() : criteriaBuilder.like(root.get("cpf"), "%" + cpf + "%");
+    private static Specification<Client> likedocumentNumber(String documentNumber) {
+        return (root, query, criteriaBuilder) -> isNullOrBlank(documentNumber) ? criteriaBuilder.conjunction() : criteriaBuilder.like(root.get("documentNumber"), "%" + documentNumber + "%");
     }
 }

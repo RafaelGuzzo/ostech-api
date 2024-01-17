@@ -9,17 +9,14 @@ import java.util.UUID;
 @Entity
 public class Client {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long code;
     @NotNull
     private String name;
     private String email;
-    private String cpf;
+    @Column(name = "document_number")
+    private String documentNumber;
     private String contact;
     private String phone;
     @Column(name = "create_at")
@@ -36,7 +33,7 @@ public class Client {
     private Client(ClientBuilder builder) {
         this.name = builder.name;
         this.email = builder.email;
-        this.cpf = builder.cpf;
+        this.documentNumber = builder.documentNumber;
         this.contact = builder.contact;
         this.phone = builder.phone;
         this.address = builder.address;
@@ -44,11 +41,11 @@ public class Client {
         this.updateAt = LocalDateTime.now();
     }
 
-    public Client updateClient(String name, String email, String cpf, String contact,
+    public Client updateClient(String name, String email, String documentNumber, String contact,
                                String phone, Address address) {
         this.name = name;
         this.email = email;
-        this.cpf = cpf;
+        this.documentNumber = documentNumber;
         this.contact = contact;
         this.phone = phone;
         this.address = address;
@@ -59,7 +56,7 @@ public class Client {
     public static class ClientBuilder {
         private String name;
         private String email;
-        private String cpf;
+        private String documentNumber;
         private String contact;
         private String phone;
         private Address address;
@@ -74,8 +71,8 @@ public class Client {
             return this;
         }
 
-        public ClientBuilder cpf(String cpf) {
-            this.cpf = cpf;
+        public ClientBuilder documentNumber(String documentNumber) {
+            this.documentNumber = documentNumber;
             return this;
         }
 
@@ -111,8 +108,8 @@ public class Client {
         return email;
     }
 
-    public String getCpf() {
-        return cpf;
+    public String getDocumentNumber() {
+        return documentNumber;
     }
 
     public String getContact() {

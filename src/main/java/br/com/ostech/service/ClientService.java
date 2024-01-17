@@ -11,15 +11,15 @@ import java.util.List;
 
 @Service
 public interface ClientService {
-    Page<Client> findAll(String name, String cpf, Pageable pageable);
+    Page<Client> findAll(String name, String documentNumber, Pageable pageable);
 
     Client save(CreateClientRequest client);
 
-    List<Client> findByClientNameAndCpf(String name, String cpf);
+    List<Client> findByClientNameAnddocumentNumber(String name, String documentNumber);
 
     List<Client> findByClientName(String name);
 
-    List<Client> findByClientCpf(String cpf);
+    List<Client> findByClientdocumentNumber(String documentNumber);
 
     Client update(Long clientId, UpdateClientRequest clientRequest);
 

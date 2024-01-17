@@ -113,7 +113,4 @@ public class Address {
     public String getUf() {
         return uf;
     }
-
-    public Address() {
-    }
 }

@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public record ClientResponse(
         String name,
         String email,
-        String cpf,
+        String documentNumber,
         String contact,
         String phone,
         Address address,
@@ -19,7 +19,7 @@ public record ClientResponse(
         this(
                 client.getName(),
                 client.getEmail(),
-                client.getCpf(),
+                client.getDocumentNumber(),
                 client.getContact(),
                 client.getPhone(),
                 client.getAddress(),

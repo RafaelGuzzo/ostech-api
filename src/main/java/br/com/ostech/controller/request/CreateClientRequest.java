@@ -17,7 +17,7 @@ public class CreateClientRequest {
     @NotBlank
     @NotEmpty
     private String email;
-    private String cpf;
+    private String documentNumber;
     private String contact;
     @NotBlank
     @NotEmpty
@@ -33,8 +33,8 @@ public class CreateClientRequest {
         return email;
     }
 
-    public String getCpf() {
-        return cpf;
+    public String getDocumentNumber() {
+        return documentNumber;
     }
 
     public String getContact() {
@@ -54,7 +54,7 @@ public class CreateClientRequest {
         return new Client.ClientBuilder()
                 .name(name)
                 .email(email)
-                .cpf(cpf)
+                .documentNumber(documentNumber)
                 .contact(contact)
                 .phone(phone)
                 .address(address.convertToModel())

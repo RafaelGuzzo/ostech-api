@@ -23,8 +23,8 @@ public class ClientServiceImpl implements ClientService {
     ClientRepository clientRepository;
 
     @Override
-    public Page<Client> findAll(String name, String cpf, Pageable pageable) {
-        Specification<Client> specification = ClientSpecification.filterBy(name, cpf);
+    public Page<Client> findAll(String name, String documentNumber, Pageable pageable) {
+        Specification<Client> specification = ClientSpecification.filterBy(name, documentNumber);
         return clientRepository.findAll(specification, pageable);
     }
 
@@ -37,8 +37,8 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public List<Client> findByClientNameAndCpf(String name, String cpf) {
-        return clientRepository.findByNameAndCpf(name, cpf);
+    public List<Client> findByClientNameAnddocumentNumber(String name, String documentNumber) {
+        return clientRepository.findByNameAnddocumentNumber(name, documentNumber);
     }
 
     @Override
@@ -47,15 +47,15 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public List<Client> findByClientCpf(String cpf) {
-        return clientRepository.findByCpf(cpf);
+    public List<Client> findByClientdocumentNumber(String documentNumber) {
+        return clientRepository.findBydocumentNumber(documentNumber);
     }
 
     @Override
     public Client update(Long clientId, UpdateClientRequest clientRequest) {
         Client client = checkExistence(clientId);
         Client clientUpdated = client.updateClient(clientRequest.getName(),
-                clientRequest.getEmail(),clientRequest.getCpf(),clientRequest.getContact(),clientRequest.getPhone(),
+                clientRequest.getEmail(),clientRequest.getdocumentNumber(),clientRequest.getContact(),clientRequest.getPhone(),
                 clientRequest.getAddress());
 
         return clientRepository.save(clientUpdated);

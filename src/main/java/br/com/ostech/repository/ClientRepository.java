@@ -15,9 +15,9 @@ import java.util.Optional;
 public interface ClientRepository extends JpaRepository<Client, Long>, JpaSpecificationExecutor<Client> {
     List<Client> findByName(String name);
 
-    List<Client> findByCpf(String cpf);
+    List<Client> findBydocumentNumber(String documentNumber);
 
     @Query(nativeQuery = true, value = "SELECT * FROM ostech.client "
-            + "WHERE name = :name AND cpf = :cpf")
-    List<Client> findByNameAndCpf(@Param("name") String name, @Param("cpf") String cpf);
+            + "WHERE name = :name AND documentNumber = :documentNumber")
+    List<Client> findByNameAnddocumentNumber(@Param("name") String name, @Param("documentNumber") String documentNumber);
 }

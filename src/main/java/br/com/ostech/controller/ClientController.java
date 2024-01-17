@@ -28,10 +28,10 @@ public class ClientController {
     @GetMapping
     public ResponseEntity<Page<ClientResponse>> getAllClients(
             @RequestParam(required = false) String name,
-            @RequestParam(required = false) String cpf,
+            @RequestParam(required = false) String documentNumber,
             Pageable pageable) {
 
-        Page<ClientResponse> clients = clientService.findAll(name, cpf, pageable).map(ClientResponse::new);
+        Page<ClientResponse> clients = clientService.findAll(name, documentNumber, pageable).map(ClientResponse::new);
         return ResponseEntity.ok(clients);
     }
 
@@ -44,16 +44,16 @@ public class ClientController {
 
     @GetMapping("/search")
     public ResponseEntity<?> getOneClient(@RequestParam(required = false) String name,
-                                          @RequestParam(required = false) String cpf) {
+                                          @RequestParam(required = false) String documentNumber) {
 
-        if (bothParamsPresent(name, cpf)) {
-            return searchByBothParams(name, cpf);
+        if (bothParamsPresent(name, documentNumber)) {
+            return searchByBothParams(name, documentNumber);
         } else if (name != null) {
             return searchByName(name);
-        } else if (cpf != null) {
-            return searchByCpf(cpf);
+        } else if (documentNumber != null) {
+            return searchBydocumentNumber(documentNumber);
         } else {
-            return ResponseEntity.badRequest().body("Provide at least one parameter (name or cpf) for the search");
+            return ResponseEntity.badRequest().body("Provide at least one parameter (name or documentNumber) for the search");
         }
     }
 
@@ -73,8 +73,8 @@ public class ClientController {
         return ResponseEntity.ok("client successfully deleted");
     }
 
-    private ResponseEntity<?> searchByBothParams(String name, String cpf) {
-        List<ClientResponse> clientFound = clientService.findByClientNameAndCpf(name, cpf)
+    private ResponseEntity<?> searchByBothParams(String name, String documentNumber) {
+        List<ClientResponse> clientFound = clientService.findByClientNameAnddocumentNumber(name, documentNumber)
                 .stream()
                 .map(client -> new ClientResponse(client))
                 .collect(Collectors.toList());
@@ -93,8 +93,8 @@ public class ClientController {
         return searchResult(clientFound);
     }
 
-    private ResponseEntity<?> searchByCpf(String cpf) {
-        List<ClientResponse> clientFound = clientService.findByClientCpf(cpf)
+    private ResponseEntity<?> searchBydocumentNumber(String documentNumber) {
+        List<ClientResponse> clientFound = clientService.findByClientdocumentNumber(documentNumber)
                 .stream()
                 .map(client -> new ClientResponse(client))
                 .collect(Collectors.toList());
@@ -108,7 +108,7 @@ public class ClientController {
         return ResponseEntity.ok(clientFound);
     }
 
-    private boolean bothParamsPresent(String name, String cpf) {
-        return name != null && cpf != null;
+    private boolean bothParamsPresent(String name, String documentNumber) {
+        return name != null && documentNumber != null;
     }
 }
