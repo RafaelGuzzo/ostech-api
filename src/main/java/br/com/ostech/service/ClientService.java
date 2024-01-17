@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Service
 public interface ClientService {
-    Page<Client> findAll(String name, String cpf, Pageable pageable);
+    Page<Client> findAll(String name, String documentNumber, Pageable pageable);
 
     Client save(ClientRequest client);
 

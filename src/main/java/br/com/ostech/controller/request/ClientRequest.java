@@ -20,7 +20,7 @@ public class ClientRequest {
     @NotBlank
     @NotEmpty
     private String email;
-    private String cpf;
+    private String documentNumber;
     private String contact;
     @NotBlank
     @NotEmpty
@@ -29,14 +29,7 @@ public class ClientRequest {
     private AddressRequest address;
 
 
-    public ClientRequest(UUID id, String name, String email, String cpf, String contact, String phone, AddressRequest address) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.cpf = cpf;
-        this.contact = contact;
-        this.phone = phone;
-        this.address = address;
+    public ClientRequest() {
     }
 
     public UUID getId() {
@@ -51,8 +44,8 @@ public class ClientRequest {
         return email;
     }
 
-    public String getCpf() {
-        return cpf;
+    public String getdocumentNumber() {
+        return documentNumber;
     }
 
     public String getContact() {
@@ -71,7 +64,7 @@ public class ClientRequest {
         return new Client.ClientBuilder()
                 .name(name)
                 .email(email)
-                .cpf(cpf)
+                .documentNumber(documentNumber)
                 .contact(contact)
                 .phone(phone)
                 .address(address.convertToModel())

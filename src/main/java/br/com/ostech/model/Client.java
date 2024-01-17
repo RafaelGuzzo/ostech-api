@@ -2,6 +2,8 @@ package br.com.ostech.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -11,6 +13,7 @@ public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     private UUID id;
     @NotNull
     private String name;
@@ -41,14 +44,15 @@ public class Client {
         this.updateAt = LocalDateTime.now();
     }
 
-    public Client updateClient(String name, String email, String documentNumber, String contact,
-                               String phone, Address address) {
-        this.name = name;
-        this.email = email;
-        this.documentNumber = documentNumber;
-        this.contact = contact;
-        this.phone = phone;
-        this.address = address;
+    public Client update(Client client) {
+        this.name = client.getName();
+        this.email = client.getEmail();
+        this.documentNumber = client.getDocumentNumber();
+        this.contact = client.getContact();
+        this.phone = client.getPhone();
+        this.address = client.getAddress();
+        this.createAt = client.getCreateAt();
+        this.updateAt = LocalDateTime.now();
 
         return this;
     }

@@ -12,45 +12,47 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 @RestController
-@RequestMapping("/api/v1/client")
+@RequestMapping(value = "/v1/client", produces = APPLICATION_JSON_VALUE)
 public class ClientController {
 
-    ClientService clientService;
+    private final ClientService clientService;
 
     @Autowired
-    public ClientController(ClientService clientService){
+    public ClientController(ClientService clientService) {
         this.clientService = clientService;
     }
 
     @GetMapping
-    public ResponseEntity<Page<ClientResponse>>getAllClients(
+    public ResponseEntity<Page<ClientResponse>> getAllClients(
             @RequestParam(required = false) String name,
-            @RequestParam(required = false) String cpf,
-            Pageable pageable){
+            @RequestParam(required = false) String documentNumber,
+            Pageable pageable) {
 
-        Page<ClientResponse> clients = clientService.findAll(name, cpf, pageable)
+        Page<ClientResponse> clients = clientService.findAll(name, documentNumber, pageable)
                 .map(ClientResponse::new);
 
         return ResponseEntity.ok(clients);
     }
 
     @PostMapping
-    public ResponseEntity<ClientResponse> addUpdateClient(@Valid @RequestBody ClientRequest client){
+    public ResponseEntity<ClientResponse> addUpdateClient(@Valid @RequestBody ClientRequest client) {
         ClientResponse newClient = new ClientResponse(clientService.save(client));
 
         return ResponseEntity.ok(newClient);
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<ClientResponse> getOneClient(@RequestParam UUID clientId) {
+    @GetMapping("/{clientId}")
+    public ResponseEntity<ClientResponse> getOneClient(@PathVariable UUID clientId) {
         ClientResponse clientFound = new ClientResponse(clientService.findByClientId(clientId));
 
         return ResponseEntity.ok(clientFound);
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<?> removeClient(@RequestParam UUID clientId){
+    @DeleteMapping("/{clientId}")
+    public ResponseEntity<?> removeClient(@PathVariable UUID clientId) {
         clientService.delete(clientId);
 
         return ResponseEntity.ok("client successfully deleted");

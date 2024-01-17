@@ -18,17 +18,7 @@ public class AddressRequest {
     private String number;
     private String uf;
 
-
-    public Address convertToModel() {
-        return new Address.AddressBuilder()
-                .street(street)
-                .district(district)
-                .zipCode(zipCode)
-                .city(city)
-                .complement(complement)
-                .number(number)
-                .uf(uf)
-                .build();
+    private AddressRequest() {
     }
 
     public String getStreet() {
@@ -59,13 +49,15 @@ public class AddressRequest {
         return uf;
     }
 
-    public AddressRequest(String street, String district, String zipCode, String city, String complement, String number, String uf) {
-        this.street = street;
-        this.district = district;
-        this.zipCode = zipCode;
-        this.city = city;
-        this.complement = complement;
-        this.number = number;
-        this.uf = uf;
+    public Address convertToModel() {
+        return new Address.AddressBuilder()
+                .street(street)
+                .district(district)
+                .zipCode(zipCode)
+                .city(city)
+                .complement(complement)
+                .number(number)
+                .uf(uf)
+                .build();
     }
 }

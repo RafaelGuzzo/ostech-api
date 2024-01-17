@@ -39,22 +39,22 @@ public class ClientServiceImplTest {
 
 /*
     @Test
-    public void findAllWhenNameAndCpfProvided() {
-        //When name and CPF are informed.
+    public void findAllWhenNameAnddocumentNumberProvided() {
+        //When name and documentNumber are informed.
         String name = "João";
-        String cpf = "12345678912";
+        String documentNumber = "12345678912";
         Pageable pageable = Pageable.unpaged();
         List<Client> clients = Arrays.asList(
                 new Client.ClientBuilder()
                         .name("João Lucio")
                         .email("joao@teste.com")
-                        .cpf("12345678912")
+                        .documentNumber("12345678912")
                         .address(new Address("Rua A", "Bairro X", "12345678", "Cidade X", "Casa", "123", "PR"))
                         .build(),
                 new Client.ClientBuilder()
                         .name("John Smith")
                         .email("smith@example.com")
-                        .cpf("987654321")
+                        .documentNumber("987654321")
                         .address(new Address("Rua B", "Bairro Y", "12345987", "Cidade Y", "Apartamento", "12", "PR"))
                         .build()
         );
@@ -63,26 +63,26 @@ public class ClientServiceImplTest {
         when(clientRepository.findAll(any(Specification.class), eq(pageable)))
                 .thenReturn(new PageImpl<>(clients));
 
-        Page<Client> result = clientService.findAll(name, cpf, pageable);
+        Page<Client> result = clientService.findAll(name, documentNumber, pageable);
 
         assertEquals(clients.size(), result.getContent().size());
     }
 
     @Test
-    public void findAllWhenNameAndCpfNotProvided() {
-        //When name and CPF aren't informed.
+    public void findAllWhenNameAnddocumentNumberNotProvided() {
+        //When name and documentNumber aren't informed.
         Pageable pageable = Pageable.unpaged();
         List<Client> clients = Arrays.asList(
                 new Client.ClientBuilder()
                         .name("João Lucio")
                         .email("joao@teste.com")
-                        .cpf("12345678912")
+                        .documentNumber("12345678912")
                         .address(new Address("Rua A", "Bairro X", "12345678", "Cidade X", "Casa", "123", "PR"))
                         .build(),
                 new Client.ClientBuilder()
                         .name("John Smith")
                         .email("smith@example.com")
-                        .cpf("987654321")
+                        .documentNumber("987654321")
                         .address(new Address("Rua B", "Bairro Y", "12345987", "Cidade Y", "Apartamento", "12", "PR"))
                         .build()
         );
@@ -96,8 +96,8 @@ public class ClientServiceImplTest {
     }
 
     @Test
-    public void findAllWhenNameAndCpfNotProvidedWithError() {
-        //When name and cpf are not provided and the result returns an error.
+    public void findAllWhenNameAnddocumentNumberNotProvidedWithError() {
+        //When name and documentNumber are not provided and the result returns an error.
         Pageable pageable = Pageable.unpaged();
 
         when(clientRepository.findAll(any(Specification.class), eq(pageable)))
@@ -118,7 +118,7 @@ public class ClientServiceImplTest {
 
         Client client = new Client.ClientBuilder()
                 .name(validName)
-                .cpf("12345678912")
+                .documentNumber("12345678912")
                 .build();
 
         when(clientRepository.findAll(any(Specification.class), any(Pageable.class)))
