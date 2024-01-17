@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS `client` (
     `document_number` varchar(255) DEFAULT NULL,
     `contact` varchar(255) DEFAULT NULL,
     `phone` varchar(255) DEFAULT NULL,
-    `created_at` datetime(6) DEFAULT NULL,
+    `create_at` datetime(6) DEFAULT NULL,
     `update_at` datetime(6) DEFAULT NULL,
     `address_id` bigint DEFAULT NULL,
     PRIMARY KEY (`id`),
@@ -27,12 +27,12 @@ CREATE TABLE IF NOT EXISTS `client` (
 
 CREATE TABLE IF NOT EXISTS  `order_service` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `created_date` datetime(6) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
-  `equipment` varchar(255) DEFAULT NULL,
+  `equipament` varchar(255) DEFAULT NULL,
   `price` decimal(19,2) DEFAULT NULL,
-  `state` varchar(255) DEFAULT NULL,
-  `update_date` datetime(6) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  `update_at` datetime(6) DEFAULT NULL,
+  `create_at` datetime(6) DEFAULT NULL,
   `client_id` char(36) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_order_service_client` (`client_id`),
@@ -41,10 +41,10 @@ CREATE TABLE IF NOT EXISTS  `order_service` (
 
 CREATE TABLE IF NOT EXISTS `system_configuration` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `created_date` datetime(6) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `logo` longtext,
   `principal` bit(1) NOT NULL,
-  `update_date` datetime(6) DEFAULT NULL,
+  `create_at` datetime(6) DEFAULT NULL,
+  `update_at` datetime(6) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
