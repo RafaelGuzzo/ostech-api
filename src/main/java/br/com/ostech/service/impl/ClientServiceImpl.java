@@ -14,7 +14,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -60,12 +59,6 @@ public class ClientServiceImpl implements ClientService {
     }
 
     private Client findByClient(UUID clientId) {
-        Optional<Client> client = clientRepository.findById(clientId);
-
-        if (client.isEmpty()) {
-            throw new ClientNotFoundException();
-        }
-
-        return client.get();
+        return clientRepository.findById(clientId).orElseThrow(ClientNotFoundException::new);
     }
 }
