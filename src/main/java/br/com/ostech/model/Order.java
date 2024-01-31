@@ -24,9 +24,9 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status = OrderStatus.OPEN;
     @Column(name = "create_at")
-    private LocalDateTime createAt = LocalDateTime.now();
+    private LocalDateTime createAt;
     @Column(name = "update_at")
-    private LocalDateTime updateAt = LocalDateTime.now();
+    private LocalDateTime updateAt;
 
     public Order() {
     }
@@ -36,6 +36,8 @@ public class Order {
         this.equipament = builder.equipament;
         this.description = builder.description;
         this.price = builder.price;
+        this.createAt = LocalDateTime.now();
+        this.updateAt = LocalDateTime.now();
     }
 
     public Order update(Order order) {

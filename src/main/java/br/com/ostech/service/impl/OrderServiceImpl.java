@@ -7,6 +7,8 @@ import br.com.ostech.model.Client;
 import br.com.ostech.model.Order;
 import br.com.ostech.repository.OrderRepository;
 import br.com.ostech.repository.specification.OrderSpecification;
+import br.com.ostech.service.ClientService;
+import br.com.ostech.service.OrderExportService;
 import br.com.ostech.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,12 +24,14 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
 
 
-    private final ClientServiceImpl clientService;
+    private final ClientService clientService;
+    private final OrderExportService orderExportService;
 
     @Autowired
-    public OrderServiceImpl(OrderRepository orderRepository, ClientServiceImpl clientService) {
+    public OrderServiceImpl(OrderRepository orderRepository, ClientServiceImpl clientService, OrderExportService orderExportService) {
         this.orderRepository = orderRepository;
         this.clientService = clientService;
+        this.orderExportService = orderExportService;
     }
 
     @Override
@@ -71,6 +75,16 @@ public class OrderServiceImpl implements OrderService {
         Order order = findByOrder(orderId);
 
         orderRepository.delete(order);
+    }
+
+    public byte[] getReportOrder(Long orderId) {
+        Order order = findByOrder(orderId);
+        try {
+            return orderExportService.exportToPDF(order);
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return null;
     }
 
     private Order findByOrder(Long orderId) {
