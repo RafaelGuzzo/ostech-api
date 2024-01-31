@@ -19,16 +19,21 @@ public class SystemConfiguration {
 
     private String description;
 
-    private boolean principal;
+    @Column(name = "is_default")
+    private boolean isDefault;
 
-    private LocalDateTime createAt = LocalDateTime.now();
-    private LocalDateTime updateAt = LocalDateTime.now();
+    private LocalDateTime createAt;
+    private LocalDateTime updateAt;
 
-    public SystemConfiguration(Long id, String logo, String description, boolean principal) {
-        this.id = id;
+    public SystemConfiguration() {
+    }
+
+    public SystemConfiguration(String logo, String description, boolean isDefault) {
         this.logo = logo;
         this.description = description;
-        this.principal = principal;
+        this.isDefault = isDefault;
+        this.createAt = LocalDateTime.now();
+        this.updateAt = LocalDateTime.now();
     }
 
     public Long getId() {
@@ -43,8 +48,8 @@ public class SystemConfiguration {
         return description;
     }
 
-    public boolean isPrincipal() {
-        return principal;
+    public boolean isDefault() {
+        return isDefault;
     }
 
     public LocalDateTime getCreateAt() {
@@ -53,5 +58,12 @@ public class SystemConfiguration {
 
     public LocalDateTime getUpdateAt() {
         return updateAt;
+    }
+
+    public void update(SystemConfiguration systemConfiguration) {
+        this.logo = systemConfiguration.logo;
+        this.description = systemConfiguration.description;
+        this.isDefault = systemConfiguration.isDefault;
+        this.updateAt = LocalDateTime.now();
     }
 }

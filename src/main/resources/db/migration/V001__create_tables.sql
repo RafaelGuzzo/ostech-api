@@ -40,11 +40,13 @@ CREATE TABLE IF NOT EXISTS  `order_service` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE IF NOT EXISTS `system_configuration` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `description` varchar(255) DEFAULT NULL,
-  `logo` longtext,
-  `principal` bit(1) NOT NULL,
-  `create_at` datetime(6) DEFAULT NULL,
-  `update_at` datetime(6) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+    `id` bigint NOT NULL AUTO_INCREMENT,
+    `description` varchar(255) DEFAULT NULL,
+    `logo` longtext,
+    `create_at` datetime(6) DEFAULT NULL,
+    `update_at` datetime(6) DEFAULT NULL,
+    `is_default` tinyint null,
+    check(is_default in (0,1)),
+    unique key ((nullif(is_default, 0))),
+    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
