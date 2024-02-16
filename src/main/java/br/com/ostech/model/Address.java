@@ -5,9 +5,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 
+@NoArgsConstructor
+@Getter
 @Entity
 public class Address {
 
@@ -47,9 +50,6 @@ public class Address {
         return this;
     }
 
-    public Address() {
-
-    }
 
     public static class AddressBuilder {
         private String street;
@@ -98,37 +98,5 @@ public class Address {
         public Address build(){
             return new Address(this);
         }
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public String getDistrict() {
-        return district;
-    }
-
-    public String getZipCode() {
-        return zipCode;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public String getComplement() {
-        return complement;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public String getUf() {
-        return uf;
     }
 }

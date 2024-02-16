@@ -4,6 +4,7 @@ import br.com.ostech.controller.request.ClientRequest;
 import br.com.ostech.controller.response.ClientResponse;
 import br.com.ostech.service.ClientService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,15 +16,11 @@ import java.util.UUID;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(value = "/v1/client", produces = APPLICATION_JSON_VALUE)
 public class ClientController {
 
     private final ClientService clientService;
-
-    @Autowired
-    public ClientController(ClientService clientService) {
-        this.clientService = clientService;
-    }
 
     @GetMapping
     public ResponseEntity<Page<ClientResponse>> getAllClients(

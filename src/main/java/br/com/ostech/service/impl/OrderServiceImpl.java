@@ -14,7 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -69,17 +68,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void delete(Long orderId) {
         Order order = findByOrder(orderId);
-
         orderRepository.delete(order);
     }
 
     private Order findByOrder(Long orderId) {
-        Optional<Order> order = orderRepository.findById(orderId);
-
-        if (order.isEmpty()) {
-            throw new OrderNotFoundException();
-        }
-
-        return order.get();
+        return orderRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
     }
 }

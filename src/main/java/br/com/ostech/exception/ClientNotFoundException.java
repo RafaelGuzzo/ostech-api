@@ -1,9 +1,8 @@
 package br.com.ostech.exception;
 
-public class ClientNotFoundException extends RuntimeException {
-    private static String NOT_FOUND = "client not found";
+public class ClientNotFoundException extends NotFoundException {
 
     public ClientNotFoundException() {
-        super(NOT_FOUND);
+        super("Client not found");
     }
 }

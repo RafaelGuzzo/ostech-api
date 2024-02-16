@@ -2,12 +2,16 @@ package br.com.ostech.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@NoArgsConstructor
+@Getter
 @Entity
 public class Client {
 
@@ -30,8 +34,6 @@ public class Client {
     @OneToOne(cascade = CascadeType.ALL)
     private Address address;
 
-    public Client() {
-    }
 
     private Client(ClientBuilder builder) {
         this.name = builder.name;
@@ -98,42 +100,6 @@ public class Client {
         public Client build() {
             return new Client(this);
         }
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getDocumentNumber() {
-        return documentNumber;
-    }
-
-    public String getContact() {
-        return contact;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public LocalDateTime getCreateAt() {
-        return createAt;
-    }
-
-    public LocalDateTime getUpdateAt() {
-        return updateAt;
     }
 
 }

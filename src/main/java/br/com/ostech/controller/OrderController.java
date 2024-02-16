@@ -6,6 +6,7 @@ import br.com.ostech.enuns.OrderStatus;
 import br.com.ostech.model.Order;
 import br.com.ostech.service.OrderService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,15 +15,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/v1/order")
 public class OrderController {
 
     private final OrderService orderService;
 
-    @Autowired
-    public OrderController(OrderService orderService) {
-        this.orderService = orderService;
-    }
 
     @GetMapping
     public ResponseEntity<Page<OrderResponse>> getAllOrders(

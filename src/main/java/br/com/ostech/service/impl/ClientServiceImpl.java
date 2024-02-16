@@ -7,7 +7,7 @@ import br.com.ostech.repository.ClientRepository;
 import br.com.ostech.repository.OrderRepository;
 import br.com.ostech.repository.specification.ClientSpecification;
 import br.com.ostech.service.ClientService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -17,16 +17,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class ClientServiceImpl implements ClientService {
+
     private final ClientRepository clientRepository;
 
     private final OrderRepository orderRepository;
-
-    @Autowired
-    public ClientServiceImpl(ClientRepository clientRepository, OrderRepository orderRepository) {
-        this.clientRepository = clientRepository;
-        this.orderRepository = orderRepository;
-    }
 
     @Override
     public Page<Client> findAll(String name, String documentNumber, Pageable pageable) {

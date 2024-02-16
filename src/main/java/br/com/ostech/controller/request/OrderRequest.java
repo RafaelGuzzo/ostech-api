@@ -5,9 +5,13 @@ import br.com.ostech.model.Order;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
+@Getter
+@NoArgsConstructor
 public class OrderRequest {
 
     private Long id;
@@ -22,29 +26,6 @@ public class OrderRequest {
     @NotNull
     private BigDecimal price;
 
-    public OrderRequest() {
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getClientId() {
-        return clientId;
-    }
-
-    public String getEquipament() {
-        return equipament;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
 
     public Order convertToModel(Client verifiedClient) {
         return new Order.OrderBuilder()

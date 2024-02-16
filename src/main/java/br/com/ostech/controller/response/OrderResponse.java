@@ -16,6 +16,7 @@ public record OrderResponse(
         LocalDateTime createAt,
         LocalDateTime updateAt,
         ClientOrderResponse client) {
+
     public OrderResponse(Order order) {
         this(
                 order.getId(),

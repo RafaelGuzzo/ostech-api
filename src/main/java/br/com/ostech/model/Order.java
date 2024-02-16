@@ -3,10 +3,14 @@ package br.com.ostech.model;
 import br.com.ostech.enuns.OrderStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Getter
+@NoArgsConstructor
 @Entity
 @Table(name = "order_service")
 public class Order {
@@ -28,8 +32,6 @@ public class Order {
     @Column(name = "update_at")
     private LocalDateTime updateAt = LocalDateTime.now();
 
-    public Order() {
-    }
 
     public Order(OrderBuilder builder) {
         this.client = builder.client;
@@ -90,37 +92,5 @@ public class Order {
             return new Order(this);
         }
 
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public String getEquipament() {
-        return equipament;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public OrderStatus getStatus() {
-        return status;
-    }
-
-    public LocalDateTime getCreateAt() {
-        return createAt;
-    }
-
-    public LocalDateTime getUpdateAt() {
-        return updateAt;
     }
 }
